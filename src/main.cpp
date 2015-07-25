@@ -204,8 +204,8 @@ int main()
     mosqpp::lib_init();
 
     mqtt = new MosqConnect(
-            "FunTechHouse_Tellstick_Sensor",
-            "mosqhub",
+            "Tellstick",
+            "localhost",
             1883
             );
 
