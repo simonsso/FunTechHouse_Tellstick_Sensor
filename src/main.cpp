@@ -82,13 +82,44 @@ void arctech(QStringList list)
             }
         }
     }
-    QString topic;
-    topic.append("FunTechHouse/tellstick/arctech/");
-    topic.append(house);
-    topic.append(unit);
-    qDebug() << house << unit << method;
-    qDebug() << topic;
-    mqtt->pub(topic, method);
+    if(house.compare("D")==0)
+    {
+        QString topic;
+        QString cmd;
+        topic.append("/starfader/");
+        if(method.compare("turnoff")==0)
+        {
+            cmd.append("fade OFF "); 
+        }
+        else if(method.compare("turnon")==0)
+        {
+            cmd.append("fade ON "); 
+        }
+        if(unit.compare("1")==0)
+        {
+            cmd.append("1000");
+        }
+        else if(unit.compare("2")==0)
+        {
+            cmd.append("10");
+        }
+        else if(unit.compare("3")==0)
+        {
+            cmd.append("1");
+        }
+        qDebug()<<topic<<cmd;
+        mqtt->pub(topic, cmd);
+    }
+    else
+    {
+        QString topic;
+        topic.append("FunTechHouse/tellstick/arctech/");
+        topic.append(house);
+        topic.append(unit);
+        qDebug() << house << unit << method;
+        qDebug() << topic;
+        mqtt->pub(topic, method);
+    }
 }
 
 //TDRawDeviceEvent
